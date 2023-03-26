@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom'
 const Navbar = () => {
     const navigate = useNavigate();
     return (
-        <div className='bg-white w-[100%] fixed top-0 z-10 shadow-md'>
-            <div className='container w-[80%] py-4 mx-auto flex items-center justify-between'>
+        <div className='bg-white w-[100%] fixed top-0 z-10 shadow-md '>
+            <div className='container w-[100%] px-[30px] py-4 mx-auto flex items-center justify-between'>
                 <div className='text-[26px]  font-bold  flex justify-center item-center'>
                     <span className='cursor-pointer' onClick={() => { navigate("/") }}>YMusic</span>
                 </div>
