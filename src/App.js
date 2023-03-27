@@ -7,9 +7,22 @@ import {
 import Home from './Pages/Home';
 import UserAuth from './Pages/UserAuth';
 import MainHome from './Pages/MainHome';
+import { fetchUser } from './Redux/user/userAction';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchBuckets } from './Redux/buckets/bucketAction';
+
 
 
 function App() {
+  const dispatch= useDispatch();
+  useEffect(()=>{
+    if(localStorage.getItem("token")!==null)
+    {
+      dispatch(fetchUser());
+      dispatch(fetchBuckets());
+    }
+  },[])
   return (
     <Router>
       <Routes>
