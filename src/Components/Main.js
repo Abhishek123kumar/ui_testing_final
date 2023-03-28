@@ -61,7 +61,7 @@ function Main() {
                 </div>
             </div>
             {add && <div className='fixed top-0 left-0 w-[100%] h-[100%]  z-50 bg-[#535151a2]'>
-                <AddNewVideo setAdd={setAdd} />
+                <AddNewVideo  setAdd={setAdd} />
             </div>
             }
         </div>

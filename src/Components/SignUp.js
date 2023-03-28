@@ -3,6 +3,8 @@ import { createUser } from '../Redux/user/userAction';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import showToast from '../showToast';
+import { CircularProgress } from '@mui/material';
+
 
 
 
@@ -12,11 +14,13 @@ function SignUp({setPot}) {
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
     const [cpassword,setCpassword] = useState("");
+    const [loading,setLoading] = useState(false);
     const clearData=()=>{
         setName("");
         setEmail("");
         setPassword("");
         setCpassword("");
+        setPot(1);
     }
     const handleClick=(e)=>{
         e.preventDefault();
@@ -34,7 +38,7 @@ function SignUp({setPot}) {
             email:email,
             password:password
         }
-        dispatch(createUser({data,clearData}));
+        dispatch(createUser({data,clearData,setLoading}));
     }
     return (
         <div className='w-[100%] h-[100vh] flex justify-center items-center'>
@@ -45,7 +49,7 @@ function SignUp({setPot}) {
                     <input value={email} onChange={(e)=>{setEmail(e.target.value)}} autoComplete="on" required={true} className="py-[4px] outline-none border-b-[1px] border-b-gray-400" type="email" placeholder="Email" name="email" />
                     <input value={password} onChange={(e)=>{setPassword(e.target.value)}} autoComplete="on" minLength="6" required={true} className="py-[4px] outline-none border-b-[1px] border-b-gray-400" type="password" placeholder="Password" name="password" />
                     <input value={cpassword} onChange={(e)=>{setCpassword(e.target.value)}} autoComplete="on" minLength="6" required={true} className="py-[4px] outline-none border-b-[1px] border-b-gray-400" type="text" placeholder="Confirm Password" name="cpassword" />
-                    <button type='submit' className='rounded-md px-3 py-[3px] text-[18px] font-bold  bg-[#ff4343]  text-white' >Continue</button>
+                    <button type='submit' className='rounded-md px-3 py-[3px] text-[18px] font-bold  bg-[#ff4343]  text-white' >{loading?<CircularProgress color="inherit" />:"Continue"}</button>
                     <div className='text-center flex justify-center items-center flex-col md:flex-row md:gap-1'><span>Already have an account?</span> <span className='text-[#ff4343] cursor-pointer font-medium' onClick={()=>{setPot(1)}}>Login</span></div>
                 </form>
             </div>

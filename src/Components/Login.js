@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { loginUser } from '../Redux/user/userAction';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { CircularProgress } from '@mui/material';
 
 function Login({ setPot }) {
     const navigate=useNavigate();
@@ -11,6 +12,7 @@ function Login({ setPot }) {
     const dispatch = useDispatch();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading,setLoading]= useState(false);
 
     const clearData=()=>{
         setEmail("");
@@ -25,7 +27,7 @@ function Login({ setPot }) {
             password: password
         }
         
-        dispatch(loginUser({data,clearData}));
+        dispatch(loginUser({data,clearData,setLoading}));
     }
 
     useEffect(()=>{
@@ -44,7 +46,7 @@ function Login({ setPot }) {
                         setEmail(e.target.value)
                     }} autoComplete="on" required={true} className="py-[4px] outline-none border-b-[1px] border-b-gray-400" type="email" placeholder="Email" name="email" />
                     <input value={password} onChange={(e)=>{setPassword(e.target.value)}} autoComplete="on" minLength="6" required={true} className="py-[4px] outline-none border-b-[1px] border-b-gray-400" type="password" placeholder="Password" name="password" />
-                    <button type='submit' className='rounded-md px-3 py-[3px] text-[18px] font-bold  bg-[#ff4343]  text-white' >Continue</button>
+                    <button type='submit' className='rounded-md px-3 py-[3px] text-[18px] font-bold  bg-[#ff4343]  text-white' >{loading?<CircularProgress color="inherit" />:"Continue"}</button>
                     <div className='text-center flex justify-center items-center flex-col md:flex-row md:gap-1'><span>Not registered?</span> <span className='text-[#ff4343] cursor-pointer font-medium' onClick={() => { setPot(2) }}>Sign Up</span></div>
                 </form>
             </div>

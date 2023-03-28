@@ -5,8 +5,9 @@ import showToast from "../../showToast";
 
 
 
-export const createUser=({data,clearData})=>async (dispatch)=>{
+export const createUser=({data,clearData,setLoading})=>async (dispatch)=>{
     try{
+        setLoading(true);
         let result=await fetch(`${process.env.REACT_APP_BASE_URL}/api/auth/register`,{
             method:"post",
             headers:{
@@ -24,6 +25,7 @@ export const createUser=({data,clearData})=>async (dispatch)=>{
                 type:"success"
             });
         }
+        setLoading(false);
         
     }catch(error){
         console.log(error.message)
@@ -31,10 +33,10 @@ export const createUser=({data,clearData})=>async (dispatch)=>{
 }
 
 
-export const loginUser=({data,clearData})=>async (dispatch)=>{
+export const loginUser=({data,clearData,setLoading})=>async (dispatch)=>{
     
     try{
-        console.log(data);
+        setLoading(true);
         let result=await fetch(`${process.env.REACT_APP_BASE_URL}/api/auth/login`,{
             method:"post",
             headers:{
@@ -55,6 +57,7 @@ export const loginUser=({data,clearData})=>async (dispatch)=>{
             dispatch(fetchBuckets());
 
         }
+        setLoading(false);
         
     }catch(error){
         console.log(error.message)
