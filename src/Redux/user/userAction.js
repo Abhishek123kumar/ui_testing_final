@@ -5,7 +5,7 @@ import showToast from "../../showToast";
 
 
 
-export const createUser=(data)=>async (dispatch)=>{
+export const createUser=({data,clearData})=>async (dispatch)=>{
     try{
         let result=await fetch(`${process.env.REACT_APP_BASE_URL}/api/auth/register`,{
             method:"post",
@@ -18,6 +18,7 @@ export const createUser=(data)=>async (dispatch)=>{
         console.log(response);
         if(response.success)
         {
+            clearData();
             showToast({
                 msg:"Successfully registered",
                 type:"success"

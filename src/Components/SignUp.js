@@ -12,6 +12,12 @@ function SignUp({setPot}) {
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
     const [cpassword,setCpassword] = useState("");
+    const clearData=()=>{
+        setName("");
+        setEmail("");
+        setPassword("");
+        setCpassword("");
+    }
     const handleClick=(e)=>{
         e.preventDefault();
         if(password!==cpassword)
@@ -28,11 +34,7 @@ function SignUp({setPot}) {
             email:email,
             password:password
         }
-        dispatch(createUser(data));
-        setName("");
-        setEmail("");
-        setPassword("");
-        setCpassword("");
+        dispatch(createUser({data,clearData}));
     }
     return (
         <div className='w-[100%] h-[100vh] flex justify-center items-center'>
