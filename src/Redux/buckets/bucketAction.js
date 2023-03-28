@@ -126,7 +126,11 @@ export const updateBucket = ({ b, Buckets, data }) => async (dispatch) => {
 export const shiftCard = ({ bucket, currbucket, card, cards ,setArrow}) => async (dispatch) => {
     try {
         dispatch(setLoader(true));
-        if(currbucket._id===bucket._id) return ;
+        if(currbucket._id===bucket._id) 
+        {
+            dispatch(setLoader(false));
+            return ;
+        }
         const data = {
             name: card.name,
             url: card.url,
