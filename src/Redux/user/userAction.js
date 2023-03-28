@@ -31,7 +31,7 @@ export const createUser=({data,clearData})=>async (dispatch)=>{
 }
 
 
-export const loginUser=(data)=>async (dispatch)=>{
+export const loginUser=({data,clearData})=>async (dispatch)=>{
     
     try{
         console.log(data);
@@ -45,6 +45,7 @@ export const loginUser=(data)=>async (dispatch)=>{
         const response=await result.json();
         if(response.success)
         {
+            clearData();
             showToast({
                 msg:"Successfully login",
                 type:"success"

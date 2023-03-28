@@ -12,6 +12,11 @@ function Login({ setPot }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const clearData=()=>{
+        setEmail("");
+        setPassword("");
+    }
+
     const handleClick = (e) => {
         e.preventDefault();
         if (password === "") return;
@@ -20,12 +25,7 @@ function Login({ setPot }) {
             password: password
         }
         
-        dispatch(loginUser(data));
-        if(user!==null)
-        {
-            setEmail("");
-            setPassword("");
-        }
+        dispatch(loginUser({data,clearData}));
     }
 
     useEffect(()=>{
