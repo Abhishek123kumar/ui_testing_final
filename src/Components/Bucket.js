@@ -45,8 +45,8 @@ function Bucket({ bucket, active }) {
 
     return active ? (
 
-        <div id='bucketContainer' className="flex justify-between items-center  text-[16px]  bg-[#ff4343] text-white  z-10 border-b-[1px] border-gray-400 cursor-pointer" >
-            <div className='w-[80%]' onClick={makeActive}>
+        <div id='bucketContainer' className="flex justify-between items-center  text-[16px]  bg-[#ff4343] text-white  z-10 border-b-[1px] border-gray-400 cursor-pointer " >
+            <div className='w-[75%]' onClick={makeActive}>
                 <input onChange={(e) => { setTxt(e.target.value) }} type="text" bg- value={txt} disabled={editMode === false ? true : false} className={editMode === false ? `outline-none  py-3 pl-[12px]  z-1 bg-[#ff4343] cursor-pointer` : `outline-none  py-3 pl-[12px]   border-[2px] rounded-md bg-[#ff4343] cursor-pointer`} />
             </div>
             <div className='py-3 px-[8px] flex gap-2 cursor-pointer w-[25%]'>
@@ -57,7 +57,7 @@ function Bucket({ bucket, active }) {
         </div>
     ) :
         <div id='bucketContainer' className="flex justify-between items-center text-gray-500 text-[16px]  hover:bg-[#ff4343]  z-10 border-b-[1px] border-gray-400 cursor-pointer">
-            <div className='w-[80%]' onClick={makeActive}>
+            <div className='w-[75%]' onClick={makeActive}>
                 <input onChange={(e) => { setTxt(e.target.value) }} type="text" bg- value={txt} disabled={editMode === false ? true : false} className={editMode === false ? `outline-none  py-3 pl-[12px]  z-1 cursor-pointer` : `outline-none  py-3 pl-[12px]   border-[2px] rounded-md cursor-pointer`} />
             </div>
             <div className='py-3 px-[8px] flex gap-3 cursor-pointer w-[25%] '>

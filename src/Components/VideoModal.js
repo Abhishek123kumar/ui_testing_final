@@ -11,7 +11,7 @@ function VideoModal({ setVideo, card }) {
           </div>
         </div>
         <div className=''>
-          <iframe width="800" height="450" src={`https://www.youtube.com/embed/${card.url.split("v=")[1].split("&")[0]}?autoplay=1&mute=1`}>
+          <iframe  className='sm:w-[400px] sm:h-[190px]   md:w-[600px] md:h-[280px] lg:w-[800px] lg:h-[450px]' src={`https://www.youtube.com/embed/${card.url.split("v=")[1].split("&")[0]}?autoplay=1&mute=1`}>
           </iframe>
         </div>
       </div>

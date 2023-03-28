@@ -10,6 +10,8 @@ import { useSelector } from 'react-redux';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import ArrowBucket from './ArrowBucket';
 import VideoModal from './VideoModal';
+import { createHistory } from '../Redux/history/historyAction';
+import moment from "moment"
 
 
 function Card({ card }) {
@@ -18,6 +20,7 @@ function Card({ card }) {
     const [video, setVideo] = useState(false);
     const { cards, activeBucket } = useSelector(store => { return store.activeBucket })
     const { buckets } = useSelector(store => { return store.buckets })
+    const {allHistory}=useSelector(store=>{return store.allHistory});
     const [edit, setEdit] = useState(false);
     const [arrow, setArrow] = useState(false);
 
@@ -25,14 +28,28 @@ function Card({ card }) {
         e.preventDefault();
         dispatch(deleteCard({ cards: cards, card: card }));
     }
+    const watchHandler=(e)=>{
+        e.preventDefault();
+        setVideo(true);
+        const nowtime=moment();
+        let data={
+            name:card.name,
+            url:card.url,
+            cardId:card._id,
+            date: nowtime.format('DD-MM-YYYY'),
+            time: nowtime.format('HH:mm'),
+        };
+        dispatch(createHistory({data,allHistory}));
+        return ;
+    }
     return (
         <div className='flex justify-center'>
-            <div className='w-[90%] h-[150px] border-[1px] shadow-lg rounded-md flex flex-col p-2 '>
+            <div className='w-[100%] h-[150px] border-[1px] shadow-lg rounded-md flex flex-col p-2 '>
                 <div className=' text-center text-[20px] font-medium text-gray-500'>
                     {card.name}
                 </div>
                 <div className='flex mt-[20px] justify-between w-[80%] mx-auto'>
-                    <div className='cursor-pointer text-[#ff4343] hover:font-bold' onClick={() => { setVideo(true) }}>
+                    <div className='cursor-pointer text-[#ff4343] hover:font-bold' onClick={watchHandler}>
                         Watch Video
                     </div>
                     <div className='cursor-pointer text-[#ff4343] hover:font-bold' onClick={() => { navigator.clipboard.writeText(card.url) ;setCopy(true);setTimeout(()=>{setCopy(false)},1500)}}>

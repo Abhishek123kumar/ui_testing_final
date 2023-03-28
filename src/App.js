@@ -11,7 +11,8 @@ import { fetchUser } from './Redux/user/userAction';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchBuckets } from './Redux/buckets/bucketAction';
-
+import History from './Pages/History';
+import { fetchHistory } from './Redux/history/historyAction';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
     {
       dispatch(fetchUser());
       dispatch(fetchBuckets());
+      dispatch(fetchHistory());
     }
   },[])
   return (
@@ -29,6 +31,7 @@ function App() {
         <Route path="/"  element={<Home/>}/>
         <Route path="/home"  element={<MainHome/>}/>
         <Route path="/auth"  element={<UserAuth/>}/>
+        <Route path="/history"  element={<History/>}/>
       </Routes>
     </Router>
   );
