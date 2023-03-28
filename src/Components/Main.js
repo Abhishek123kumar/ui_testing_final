@@ -7,14 +7,22 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import { LinearProgress } from '@mui/material';
+
+
 
 function Main() {
+    const {loader} = useSelector(store=>{return store.loader})
     const [show, setShow] = useState(false)
     const [hamb,setHamb] = useState(true);
+    
     const { activeBucket, cards } = useSelector(store => { return store.activeBucket });
     const [add, setAdd] = useState(false);
     return (
         <div className='mt-[72px]  flex flex-col'>
+            <div>
+                {loader&&<LinearProgress color="primary" />}
+            </div>
             <div className='flex  xl:hidden justify-between px-[30px] border-gray-400 border-b-[2px]'>
                 {hamb&&<div className='text-[20px] font-bold py-[10px] cursor-pointer' onClick={() => { setShow(true) ;setHamb(false)}}>
                     All Categories <MenuOutlinedIcon />

@@ -1,13 +1,14 @@
 import {fetchUserLoading,fetchUserSuccess,fetchUserFail} from "./userSlice";
 import { fetchBuckets } from "../buckets/bucketAction";
 import showToast from "../../showToast";
+import { setLoader } from "../loader/loaderAction";
 
 
 
 
 export const createUser=({data,clearData,setLoading})=>async (dispatch)=>{
     try{
-        setLoading(true);
+        dispatch(setLoader(true));
         let result=await fetch(`${process.env.REACT_APP_BASE_URL}/api/auth/register`,{
             method:"post",
             headers:{
@@ -25,7 +26,7 @@ export const createUser=({data,clearData,setLoading})=>async (dispatch)=>{
                 type:"success"
             });
         }
-        setLoading(false);
+        dispatch(setLoader(false));
         
     }catch(error){
         console.log(error.message)
@@ -34,9 +35,8 @@ export const createUser=({data,clearData,setLoading})=>async (dispatch)=>{
 
 
 export const loginUser=({data,clearData,setLoading})=>async (dispatch)=>{
-    
     try{
-        setLoading(true);
+        dispatch(setLoader(true));
         let result=await fetch(`${process.env.REACT_APP_BASE_URL}/api/auth/login`,{
             method:"post",
             headers:{
@@ -57,7 +57,14 @@ export const loginUser=({data,clearData,setLoading})=>async (dispatch)=>{
             dispatch(fetchBuckets());
 
         }
-        setLoading(false);
+        else
+        {
+            showToast({
+                msg:response.message,
+                type:"success"
+            });
+        }
+        dispatch(setLoader(false));
         
     }catch(error){
         console.log(error.message)

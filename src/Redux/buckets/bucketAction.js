@@ -1,9 +1,12 @@
 import { fetchBucketsFail, fetchBucketsSuccess, fetchBucketsLoading } from "./bucketSlice";
 import { fetchCards ,fetchactiveBucketSuccess} from "../activeBucket/activeBucketSlice";
+import { setLoader } from "../loader/loaderAction";
+import showToast from "../../showToast";
 
 
 export const fetchBuckets = () => async (dispatch) => {
     try {
+        dispatch(setLoader(true));
         dispatch(fetchBucketsLoading());
         let result = await fetch(`${process.env.REACT_APP_BASE_URL}/api/bucket/getAllBuckets`, {
             method: "post",
@@ -16,6 +19,7 @@ export const fetchBuckets = () => async (dispatch) => {
         if (result.success) {
             dispatch(fetchBucketsSuccess(result.buckets));
         }
+        dispatch(setLoader(false));
     } catch (error) {
         dispatch(fetchBucketsFail(error.message));
     }
@@ -23,6 +27,7 @@ export const fetchBuckets = () => async (dispatch) => {
 
 export const addBucket = ({ data, Buckets, setNewcat }) => async (dispatch) => {
     try {
+        dispatch(setLoader(true));
         let result = await fetch(`${process.env.REACT_APP_BASE_URL}/api/bucket/create`, {
             method: "post",
             headers: {
@@ -36,7 +41,12 @@ export const addBucket = ({ data, Buckets, setNewcat }) => async (dispatch) => {
             setNewcat("");
             let newAllBuckets = [...Buckets, result.bucket]
             dispatch(fetchBucketsSuccess(newAllBuckets))
+            showToast({
+                msg:"Successfully added",
+                type:"success"
+            });
         }
+        dispatch(setLoader(false));
     } catch (error) {
         console.log(error.message);
     }
@@ -44,6 +54,7 @@ export const addBucket = ({ data, Buckets, setNewcat }) => async (dispatch) => {
 
 export const deleteBucket = ({ b, Buckets ,cards,activeBucket}) => async (dispatch) => {
     try {
+        dispatch(setLoader(true));
         let result = await fetch(`${process.env.REACT_APP_BASE_URL}/api/bucket/deleteBucket/${b._id}`, {
             method: "post",
             headers: {
@@ -68,9 +79,13 @@ export const deleteBucket = ({ b, Buckets ,cards,activeBucket}) => async (dispat
                     break;
                 }
             }
+            showToast({
+                msg:"Successfully deleted",
+                type:"success"
+            });
             dispatch(fetchBucketsSuccess(newAllBuckets));
         }
-
+        dispatch(setLoader(false));
     } catch (error) {
         console.log(error.message);
     }
@@ -78,6 +93,7 @@ export const deleteBucket = ({ b, Buckets ,cards,activeBucket}) => async (dispat
 
 export const updateBucket = ({ b, Buckets, data }) => async (dispatch) => {
     try {
+        dispatch(setLoader(true));
         let result = await fetch(`${process.env.REACT_APP_BASE_URL}/api/bucket/updateBucket/${b._id}`, {
             method: "post",
             headers: {
@@ -96,8 +112,12 @@ export const updateBucket = ({ b, Buckets, data }) => async (dispatch) => {
                 }
             }
             dispatch(fetchBucketsSuccess(newAllBuckets));
+            showToast({
+                msg:"Successfully updated",
+                type:"success"
+            });
         }
-
+        dispatch(setLoader(false));
     } catch (error) {
         console.log(error.message);
     }
@@ -105,6 +125,7 @@ export const updateBucket = ({ b, Buckets, data }) => async (dispatch) => {
 
 export const shiftCard = ({ bucket, currbucket, card, cards ,setArrow}) => async (dispatch) => {
     try {
+        dispatch(setLoader(true));
         if(currbucket._id===bucket._id) return ;
         const data = {
             name: card.name,
@@ -129,7 +150,12 @@ export const shiftCard = ({ bucket, currbucket, card, cards ,setArrow}) => async
             }
             setArrow(false);
             dispatch(fetchCards(nc));
+            showToast({
+                msg:"Successfully shifted",
+                type:"success"
+            });
         }
+        dispatch(setLoader(false));
     } catch (error) {
         console.log(error.message);
     }

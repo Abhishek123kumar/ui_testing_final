@@ -1,9 +1,11 @@
 import showToast from "../../showToast";
 import { fetchallHistoryFail,fetchallHistoryLoading,fetchallHistorySuccess } from "./historySlice";
+import { setLoader } from "../loader/loaderAction";
 
 export const fetchHistory=()=>async (dispatch)=>{
     dispatch(fetchallHistoryLoading());
     try{
+        dispatch(setLoader(true));
         let result=await fetch(`${process.env.REACT_APP_BASE_URL}/api/history/getAllHistory`,{
             method:"post",
             headers:{
@@ -16,6 +18,7 @@ export const fetchHistory=()=>async (dispatch)=>{
         {
             dispatch(fetchallHistorySuccess(result.allHistory));
         }
+        dispatch(setLoader(false));
     }catch(error)
     {
         console.log(error.message);
@@ -48,6 +51,7 @@ export const createHistory=({data,allHistory})=>async (dispatch)=>{
 
 export const deleteHistory=({history,allHistory})=>async (dispatch)=>{
     try{
+        dispatch(setLoader(true));
         let result=await fetch(`${process.env.REACT_APP_BASE_URL}/api/history/deleteHistory/${history._id}`,{
             method:"delete",
             headers:{
@@ -73,6 +77,7 @@ export const deleteHistory=({history,allHistory})=>async (dispatch)=>{
             });
             dispatch(fetchallHistorySuccess(newAllHistory));
         }
+        dispatch(setLoader(false));
     }catch(error)
     {
         console.log(error.message);
@@ -82,7 +87,7 @@ export const deleteHistory=({history,allHistory})=>async (dispatch)=>{
 
 export const clearAll=()=>async (dispatch)=>{
     try{
-        
+        dispatch(setLoader(true));
         let result=await fetch(`${process.env.REACT_APP_BASE_URL}/api/history/clearAll`,{
             method:"delete",
             headers:{
@@ -99,6 +104,7 @@ export const clearAll=()=>async (dispatch)=>{
                 type:"success"
             });
         }
+        dispatch(setLoader(false));
     }catch(error)
     {
         console.log(error.message);
