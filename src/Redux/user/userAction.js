@@ -1,5 +1,7 @@
 import {fetchUserLoading,fetchUserSuccess,fetchUserFail} from "./userSlice";
 import { fetchBuckets } from "../buckets/bucketAction";
+import showToast from "../../showToast";
+
 
 
 
@@ -14,6 +16,13 @@ export const createUser=(data)=>async (dispatch)=>{
         })
         const response=await result.json();
         console.log(response);
+        if(response.success)
+        {
+            showToast({
+                msg:"Successfully registered",
+                type:"success"
+            });
+        }
         
     }catch(error){
         console.log(error.message)
@@ -35,6 +44,10 @@ export const loginUser=(data)=>async (dispatch)=>{
         const response=await result.json();
         if(response.success)
         {
+            showToast({
+                msg:"Successfully login",
+                type:"success"
+            });
             dispatch(fetchUserSuccess(response.user));
             localStorage.setItem("token",response.token);
             dispatch(fetchBuckets());

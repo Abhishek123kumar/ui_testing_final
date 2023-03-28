@@ -13,27 +13,31 @@ import { useEffect } from 'react';
 import { fetchBuckets } from './Redux/buckets/bucketAction';
 import History from './Pages/History';
 import { fetchHistory } from './Redux/history/historyAction';
+import { Toaster } from 'react-hot-toast';
 
 
 function App() {
-  const dispatch= useDispatch();
-  useEffect(()=>{
-    if(localStorage.getItem("token")!==null)
-    {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (localStorage.getItem("token") !== null) {
       dispatch(fetchUser());
       dispatch(fetchBuckets());
       dispatch(fetchHistory());
     }
-  },[])
+  }, [])
   return (
-    <Router>
-      <Routes>
-        <Route path="/"  element={<Home/>}/>
-        <Route path="/home"  element={<MainHome/>}/>
-        <Route path="/auth"  element={<UserAuth/>}/>
-        <Route path="/history"  element={<History/>}/>
-      </Routes>
-    </Router>
+    <>
+      <Toaster />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<MainHome />} />
+          <Route path="/auth" element={<UserAuth />} />
+          <Route path="/history" element={<History />} />
+        </Routes>
+      </Router>
+
+    </>
   );
 }
 

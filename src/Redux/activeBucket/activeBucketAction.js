@@ -1,3 +1,4 @@
+import showToast from "../../showToast";
 import { fetchactiveBucketFail,fetchactiveBucketLoading,fetchactiveBucketSuccess,fetchCards } from "./activeBucketSlice";
 
 export const setActiveBucket = ({activeBucket})=>async (dispatch)=>{
@@ -65,6 +66,10 @@ export const createCard = ({data,cards,setAdd})=>async (dispatch)=>{
         {
             let ncards=[...cards,result.card];
             dispatch(fetchCards(ncards));
+            showToast({
+                msg:"Successfully added",
+                type:"success"
+            });
             setAdd(false);
         }
     }catch(error){
@@ -95,6 +100,10 @@ export const updataCard = ({data,cards,card,setEdit})=>async (dispatch)=>{
                     break;
                 }
             }
+            showToast({
+                msg:"Successfully updated",
+                type:"success"
+            });
             setEdit(false);
             dispatch(fetchCards(ncards));
         }

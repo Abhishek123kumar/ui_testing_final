@@ -2,6 +2,7 @@ import React from 'react';
 import { createUser } from '../Redux/user/userAction';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
+import showToast from '../showToast';
 
 
 
@@ -15,6 +16,10 @@ function SignUp({setPot}) {
         e.preventDefault();
         if(password!==cpassword)
         {
+            showToast({
+                msg:"Passowrd is not matched with confirm password",
+                type:"error"
+            });
             return ;
         }
         if(password==="") return ;

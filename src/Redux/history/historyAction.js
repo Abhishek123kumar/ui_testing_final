@@ -1,3 +1,4 @@
+import showToast from "../../showToast";
 import { fetchallHistoryFail,fetchallHistoryLoading,fetchallHistorySuccess } from "./historySlice";
 
 export const fetchHistory=()=>async (dispatch)=>{
@@ -66,6 +67,10 @@ export const deleteHistory=({history,allHistory})=>async (dispatch)=>{
                     break;
                 }
             }
+            showToast({
+                msg:"Successfully deleted",
+                type:"success"
+            });
             dispatch(fetchallHistorySuccess(newAllHistory));
         }
     }catch(error)
@@ -89,6 +94,10 @@ export const clearAll=()=>async (dispatch)=>{
         if(result.success)
         {
             dispatch(fetchallHistorySuccess([]));
+            showToast({
+                msg:"Successfully deleted",
+                type:"success"
+            });
         }
     }catch(error)
     {
