@@ -4,10 +4,13 @@ import { updateUser } from '../Redux/user/userAction';
 import { useDispatch } from 'react-redux';
 import { fetchHistory } from '../Redux/history/historyAction';
 import showToast from '../showToast';
+import { useSelector } from 'react-redux';
+import { LinearProgress } from '@mui/material';
 
 
 
 const Navbar = () => {
+    const {loader} = useSelector(store=>{return store.loader})
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const logoutHandler=(e)=>{
@@ -34,6 +37,9 @@ const Navbar = () => {
                     }
 
                 </div>
+            </div>
+            <div>
+                {loader&&<LinearProgress color='primary'/>}
             </div>
         </div>
     )
