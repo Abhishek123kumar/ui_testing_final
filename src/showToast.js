@@ -29,7 +29,7 @@ const CustomMsg = (t, { msg, includeDismiss }) => {
 const showToast = ({
   msg = "Empty Message",
   type = "success",
-  duration = 2000,
+  duration = 3000,
   position = "top-center",
   includeDismiss = false,
 }) =>
